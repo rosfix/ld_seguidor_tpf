@@ -1,0 +1,61 @@
+# sciFLT scilab Fuzzy Logic Toolbox
+<REVISION>
+ <revision>@REV@
+
+<DESCRIPTION>
+ <name>Seguidor
+ <comment>
+ <type>m
+ <SNorm>max
+ <SNormPar>0
+ <TNorm>min
+ <TNormPar>0
+ <Comp>one
+ <CompPar>0
+ <ImpMethod>prod
+ <AggMethod>max
+ <defuzzMethod>centroide
+
+<INPUT>
+ <name>distancia
+ <range>10 200
+  <mf_name>cerca
+   <mf_type>trimf
+   <mf_par>10.0 30.0 40.0
+  <mf_name>distante
+   <mf_type>trimf
+   <mf_par>35.0 70.0 90.0
+  <mf_name>lejos
+   <mf_type>trimf
+   <mf_par>80.0 150.0 200.0
+
+ <name>velocidad
+ <range>0 100
+  <mf_name>lento
+   <mf_type>trimf
+   <mf_par>0.0 10.0 20.0
+  <mf_name>crucero
+   <mf_type>trimf
+   <mf_par>9.0 40.0 60.0
+  <mf_name>corrida
+   <mf_type>trimf
+   <mf_par>50.0 70.0 100.0
+
+<OUTPUT>
+ <name>avance
+ <range>0 100
+  <mf_name>acercar
+   <mf_type>trimf
+   <mf_par>0.0 5.0 10.0
+  <mf_name>seguir
+   <mf_type>trimf
+   <mf_par>7.0 20.0 50.0
+  <mf_name>atrapar
+   <mf_type>trimf
+   <mf_par>45.0 70.0 100.0
+
+<RULE>
+1 1 1 1 1.0
+2 2 2 1 1.0
+3 2 3 1 1.0
+
