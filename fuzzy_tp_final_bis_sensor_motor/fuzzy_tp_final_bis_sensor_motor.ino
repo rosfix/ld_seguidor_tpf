@@ -5,26 +5,28 @@
 Fuzzy *difuso = new Fuzzy();
 
 // FuzzyInput: distancia
-FuzzySet *cerca = new FuzzySet(0, 30, 30, 40);
-FuzzySet *distante = new FuzzySet(35, 70, 70, 90);
-FuzzySet *lejos = new FuzzySet(80, 150, 150, 200);
+FuzzySet *cerca = new FuzzySet(0, 2, 50, 70);
+FuzzySet *distante = new FuzzySet(90, 150, 250, 330);
+FuzzySet *lejos = new FuzzySet(270, 320, 350, 350);
 
 // FuzzyInput: velocidad
-FuzzySet *lento = new FuzzySet(0, 10, 10, 20);
-FuzzySet *crucero = new FuzzySet(10, 40, 40, 60);
-FuzzySet *corrida = new FuzzySet(50, 70, 70, 100);
+FuzzySet *lento = new FuzzySet(0, 5, 30, 35);
+FuzzySet *crucero = new FuzzySet(25, 40, 60, 80);
+FuzzySet *corrida = new FuzzySet(70, 85, 120, 150);
 
 // FuzzyOutput: avance
-FuzzySet *acercar = new FuzzySet(0, 5, 5, 10);
-FuzzySet *seguir = new FuzzySet(7, 20, 20, 50);
-FuzzySet *atrapar = new FuzzySet(50, 70, 70, 100);
+FuzzySet *acercar = new FuzzySet(0, 2, 20, 50);
+FuzzySet *seguir = new FuzzySet(25, 40, 60, 70);
+FuzzySet *atrapar = new FuzzySet(55, 80, 100, 100);
 
 
 
 const int EchoPin = 2;
 const int TriggerPin = 13;
 
-AF_Stepper motor(256, 1);       
+AF_Stepper motor1(256, 1);       
+
+AF_Stepper motor2(256, 2);   
 
 void setup() {
 
@@ -72,15 +74,58 @@ void setup() {
   FuzzyRuleAntecedent *lejosYcrucero = new FuzzyRuleAntecedent();
   lejosYcrucero->joinWithAND(distante, crucero);
   FuzzyRuleConsequent *captura = new FuzzyRuleConsequent();
-  seguimiento->addOutput(atrapar);
+  captura->addOutput(atrapar);
   FuzzyRule *regla3 = new FuzzyRule(3, lejosYcrucero, captura);
   difuso->addFuzzyRule(regla3);
+
+    FuzzyRuleAntecedent *cercaYcrucero = new FuzzyRuleAntecedent();
+ cercaYcrucero->joinWithAND(cerca, crucero);
+  FuzzyRuleConsequent *cruzarcerca = new FuzzyRuleConsequent();
+  cruzarcerca->addOutput(acercar);
+  FuzzyRule *regla4 = new FuzzyRule(3, cercaYcrucero, cruzarcerca);
+  difuso->addFuzzyRule(regla4);
+  
+    FuzzyRuleAntecedent *cercaYcorrida = new FuzzyRuleAntecedent();
+  cercaYcorrida->joinWithAND(cerca, corrida);
+  FuzzyRuleConsequent *correrCerca = new FuzzyRuleConsequent();
+  correrCerca->addOutput(seguir);
+  FuzzyRule *regla5 = new FuzzyRule(3, cercaYcorrida, correrCerca );
+  difuso->addFuzzyRule(regla5);
+  
+    FuzzyRuleAntecedent *lejosYcrucero = new FuzzyRuleAntecedent();
+  lejosYcrucero->joinWithAND(distante, crucero);
+  FuzzyRuleConsequent *captura = new FuzzyRuleConsequent();
+  seguimiento->addOutput(atrapar);
+  FuzzyRule *regla6 = new FuzzyRule(3, lejosYcrucero, captura);
+  difuso->addFuzzyRule(regla6);
+  
+    FuzzyRuleAntecedent *lejosYcrucero = new FuzzyRuleAntecedent();
+  lejosYcrucero->joinWithAND(distante, crucero);
+  FuzzyRuleConsequent *captura = new FuzzyRuleConsequent();
+  seguimiento->addOutput(atrapar);
+  FuzzyRule *regla7 = new FuzzyRule(3, lejosYcrucero, captura);
+  difuso->addFuzzyRule(regla7);
+  
+    FuzzyRuleAntecedent *lejosYcrucero = new FuzzyRuleAntecedent();
+  lejosYcrucero->joinWithAND(distante, crucero);
+  FuzzyRuleConsequent *captura = new FuzzyRuleConsequent();
+  seguimiento->addOutput(atrapar);
+  FuzzyRule *regla8 = new FuzzyRule(3, lejosYcrucero, captura);
+  difuso->addFuzzyRule(regla8);
+
+     FuzzyRuleAntecedent *lejosYcrucero = new FuzzyRuleAntecedent();
+  lejosYcrucero->joinWithAND(distante, crucero);
+  FuzzyRuleConsequent *captura = new FuzzyRuleConsequent();
+  seguimiento->addOutput(atrapar);
+  FuzzyRule *regla9 = new FuzzyRule(3, lejosYcrucero, captura);
+  difuso->addFuzzyRule(regla9);
   
    Serial.begin(9600);
    pinMode(TriggerPin, OUTPUT);
    pinMode(EchoPin, INPUT);
 
-   motor.setSpeed(50); // 50 rpm
+   motor1.setSpeed(70); //rpm
+   motor2.setSpeed(70); // rpm
 }
 
 int cm=0;
@@ -98,13 +143,26 @@ void loop() {
    Serial.print(" Avance:");
    Serial.println(avanceMotor);
 
-   motor.step(avanceMotor*40, FORWARD, SINGLE);
+
+  int pasos=avanceMotor*3;
+  Serial.print(" Pasos:");
+  Serial.println(pasos);
+
+
+   
+ for (int paso = 0; paso <= pasos; paso++) {
+   motor1.step(1, FORWARD, DOUBLE);
+   motor2.step(1, BACKWARD, DOUBLE);
+  }
+
+  
+
 }
 
 void velocidad() {
 
    cm = ping(TriggerPin, EchoPin);
-   vel=cm-cma;
+   vel=(cm-cma);
    
    Serial.print("D:");
    Serial.print(cm);
