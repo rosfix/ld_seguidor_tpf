@@ -72,7 +72,7 @@ void setup() {
   difuso->addFuzzyRule(regla2);
 
   FuzzyRuleAntecedent *lejosYcrucero = new FuzzyRuleAntecedent();
-  lejosYcrucero->joinWithAND(distante, crucero);
+  lejosYcrucero->joinWithAND(lejos, crucero);
   FuzzyRuleConsequent *captura = new FuzzyRuleConsequent();
   captura->addOutput(atrapar);
   FuzzyRule *regla3 = new FuzzyRule(3, lejosYcrucero, captura);
@@ -82,42 +82,42 @@ void setup() {
  cercaYcrucero->joinWithAND(cerca, crucero);
   FuzzyRuleConsequent *cruzarcerca = new FuzzyRuleConsequent();
   cruzarcerca->addOutput(acercar);
-  FuzzyRule *regla4 = new FuzzyRule(3, cercaYcrucero, cruzarcerca);
+  FuzzyRule *regla4 = new FuzzyRule(4, cercaYcrucero, cruzarcerca);
   difuso->addFuzzyRule(regla4);
   
     FuzzyRuleAntecedent *cercaYcorrida = new FuzzyRuleAntecedent();
   cercaYcorrida->joinWithAND(cerca, corrida);
   FuzzyRuleConsequent *correrCerca = new FuzzyRuleConsequent();
   correrCerca->addOutput(seguir);
-  FuzzyRule *regla5 = new FuzzyRule(3, cercaYcorrida, correrCerca );
+  FuzzyRule *regla5 = new FuzzyRule(5, cercaYcorrida, correrCerca );
   difuso->addFuzzyRule(regla5);
   
-    FuzzyRuleAntecedent *lejosYcrucero = new FuzzyRuleAntecedent();
-  lejosYcrucero->joinWithAND(distante, crucero);
-  FuzzyRuleConsequent *captura = new FuzzyRuleConsequent();
-  seguimiento->addOutput(atrapar);
-  FuzzyRule *regla6 = new FuzzyRule(3, lejosYcrucero, captura);
+    FuzzyRuleAntecedent *distanteYlento = new FuzzyRuleAntecedent();
+  distanteYlento->joinWithAND(distante, lento);
+  FuzzyRuleConsequent *sigilo = new FuzzyRuleConsequent();
+  sigilo->addOutput(acercar);
+  FuzzyRule *regla6 = new FuzzyRule(6, distanteYlento, sigilo);
   difuso->addFuzzyRule(regla6);
   
-    FuzzyRuleAntecedent *lejosYcrucero = new FuzzyRuleAntecedent();
-  lejosYcrucero->joinWithAND(distante, crucero);
-  FuzzyRuleConsequent *captura = new FuzzyRuleConsequent();
-  seguimiento->addOutput(atrapar);
-  FuzzyRule *regla7 = new FuzzyRule(3, lejosYcrucero, captura);
+    FuzzyRuleAntecedent *distanteYcorrida = new FuzzyRuleAntecedent();
+  distanteYcorrida->joinWithAND(distante, corrida);
+  FuzzyRuleConsequent *sepierde = new FuzzyRuleConsequent();
+  sepierde->addOutput(atrapar);
+  FuzzyRule *regla7 = new FuzzyRule(7,distanteYcorrida, sepierde);
   difuso->addFuzzyRule(regla7);
   
-    FuzzyRuleAntecedent *lejosYcrucero = new FuzzyRuleAntecedent();
-  lejosYcrucero->joinWithAND(distante, crucero);
-  FuzzyRuleConsequent *captura = new FuzzyRuleConsequent();
-  seguimiento->addOutput(atrapar);
-  FuzzyRule *regla8 = new FuzzyRule(3, lejosYcrucero, captura);
+    FuzzyRuleAntecedent *lejosYlento = new FuzzyRuleAntecedent();
+  lejosYlento->joinWithAND(lejos, lento);
+  FuzzyRuleConsequent *nomevio = new FuzzyRuleConsequent();
+  nomevio->addOutput(seguir);
+  FuzzyRule *regla8 = new FuzzyRule(8, lejosYlento, nomevio);
   difuso->addFuzzyRule(regla8);
 
-     FuzzyRuleAntecedent *lejosYcrucero = new FuzzyRuleAntecedent();
-  lejosYcrucero->joinWithAND(distante, crucero);
-  FuzzyRuleConsequent *captura = new FuzzyRuleConsequent();
-  seguimiento->addOutput(atrapar);
-  FuzzyRule *regla9 = new FuzzyRule(3, lejosYcrucero, captura);
+     FuzzyRuleAntecedent *lejosYcorrida = new FuzzyRuleAntecedent();
+  lejosYcorrida->joinWithAND(lejos, corrida);
+  FuzzyRuleConsequent *seva = new FuzzyRuleConsequent();
+  seva->addOutput(seguir);
+  FuzzyRule *regla9 = new FuzzyRule(9, lejosYcorrida, seva);
   difuso->addFuzzyRule(regla9);
   
    Serial.begin(9600);
